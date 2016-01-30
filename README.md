@@ -9,15 +9,15 @@ order to keep people in the air as long as possible. There are different tools t
 The longer people are in the air, the more points that you can accumlate, which allows you to buy more things, to build higher and bigger, and accumlate even more points.
 
 ### Tools included:
-*Trampoline
-*Slide
-*Funnel
-*Portals
-*Pins
-*Mattresses
-*Glue Traps
-*Fly Traps - these are sticker than glue traps
-*Nets
+* Trampoline
+* Slide
+* Funnel
+* Portals
+* Pins
+* Mattresses
+* Glue Traps
+* Fly Traps - these are sticker than glue traps
+* Nets
 
 ## GAME OVER
 When too many people die from your contraption, the game ends, and your score will be displayed at the end screen.
