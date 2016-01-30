@@ -23,6 +23,6 @@ The longer people are in the air, the more points that you can accumlate, which 
 When too many people die from your contraption, the game ends, and your score will be displayed at the end screen.
 
 ## Developer Notes:
-*Each item has durability, which is how the object loses potential to continue working the same way.
-*You can only place a certain amount of objects at a time, depending on how many points that you have.
-*The more air time that you give the person, the more points you will get.
+* Each item has durability, which is how the object loses potential to continue working the same way.
+* You can only place a certain amount of objects at a time, depending on how many points that you have.
+* The more air time that you give the person, the more points you will get.
