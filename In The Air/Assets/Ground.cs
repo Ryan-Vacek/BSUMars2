@@ -18,11 +18,12 @@ public class Ground : MonoBehaviour {
 	void Start () {
 		int screenWidth = Screen.width;
 		int heightDifferential = 0;
+		heightMap = new List<Vector2> ();
 
 		switch (diff)
 		{
 		case difficulty.easy:
-			heightDifferential = 6;
+			heightDifferential = 12;
 			for (int i = 0; i < 8; i++) {
 				int heightDelta = (int) (heightDifferential * Random.value - heightDifferential / 2.0f);
 				Vector2 vec2;
@@ -33,7 +34,7 @@ public class Ground : MonoBehaviour {
 			}
 			break;
 		case difficulty.medium:
-			heightDifferential = 10;
+			heightDifferential = 20;
 			for (int i = 0; i < 16; i++) {
 				int heightDelta = (int) (heightDifferential * Random.value - heightDifferential / 2.0f);
 				Vector2 vec2;
@@ -44,7 +45,7 @@ public class Ground : MonoBehaviour {
 			}
 			break;
 		case difficulty.hard:
-			heightDifferential = 14;
+			heightDifferential = 28;
 			for (int i = 0; i < 24; i++) {
 				int heightDelta = (int) (heightDifferential * Random.value - heightDifferential / 2.0f);
 				Vector2 vec2;
@@ -59,9 +60,28 @@ public class Ground : MonoBehaviour {
 		}
 
 		heightMap.Sort ((vec1, vec2) => vec1.x.CompareTo(vec2.x));
+		List<Vector3> vertices = new List<Vector3> ();
+		List<Vector2> triangles = new List<Vector2> ();
+		vertices.Add (new Vector3 (0, 0, 0));
+		for (int i = 0; i < heightMap.Count; i++) {
+			vertices.Add ((Vector3) heightMap[i]);
+		}
 
 		for (int i = 0; i < heightMap.Count; i++) {
-			print (heightMap [i]);
+			Vector3 vert = (Vector3) heightMap [i];
+			vert.y = 0;
+			vertices.Add (vert);
+		}
+		vertices.Add (new Vector3 (screenWidth, 0, 0));
+		Mesh mesh = GetComponent<MeshFilter>().mesh;
+		mesh.vertices = vertices.ToArray();
+
+
+		// Create a rectangle for every set of 4 points
+		for (int i = 0; i < heightMap.Count-1; i++) {
+			// rectangle 0 is point length-1, 0, 1, 2
+			// rectangle 1 is point length-1, length-2, 2, 3
+
 		}
 	}
 	
