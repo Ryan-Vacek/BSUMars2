@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrampolineIcon : MonoBehaviour {
+public class PlacementIcon : MonoBehaviour {
 
 	[SerializeField] GameObject spawnObject;
 	bool mouseDown = false;
@@ -9,7 +9,7 @@ public class TrampolineIcon : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		startingPos = gameObject.transform.position;
+		startingPos = gameObject.transform.localPosition;
 	}
 	
 	// Update is called once per frame
@@ -19,19 +19,17 @@ public class TrampolineIcon : MonoBehaviour {
 			pos.z = gameObject.transform.position.z;
 			gameObject.transform.position = pos;
 		} else {
-			gameObject.transform.position = startingPos;
+			gameObject.transform.localPosition = startingPos;
 		}
 	}
 
-	void OnMouseDown() {
-		gameObject.GetComponent<SpriteRenderer> ().color = Color.green;
+	public void OnMouseDown() {
 		mouseDown = true;
 	}
 
-	void OnMouseUp() {
+	public void OnMouseUp() {
 		// Do some magic check here to see if this is a valid spot to drop a trampoline
 		Instantiate(spawnObject, gameObject.transform.position, gameObject.transform.rotation);
-		gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
 		mouseDown = false;
 	}
 }

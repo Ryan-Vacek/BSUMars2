@@ -26,6 +26,9 @@ public class Person : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision) {
 		Instantiate (blood, transform.position, transform.rotation);
+		if (collision.collider.gameObject.GetComponent<Trampoline> () != null) {
+			hitObst ();
+		}
 	}
 
 	public Portal getPortal() {

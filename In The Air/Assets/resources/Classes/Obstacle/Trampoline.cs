@@ -30,7 +30,6 @@ public class Trampoline : Obstacle {
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
-		coll.gameObject.GetComponent<Person>().hitObst();
 		this.durability -= 1;
 	}
 }

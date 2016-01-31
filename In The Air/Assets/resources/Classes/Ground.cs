@@ -10,8 +10,9 @@ enum difficulty : int {
 
 public class Ground : MonoBehaviour {
 
-	difficulty diff = difficulty.easy;
-	float height = 1;
+	[SerializeField] difficulty diff = difficulty.easy;
+	[SerializeField] float height = 1;
+
 	List<Vector3> vertices;
 	List<int> triangles;
 	List<Vector2> uv;
