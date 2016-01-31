@@ -12,24 +12,22 @@ public class Ground : MonoBehaviour {
 
 	difficulty diff = difficulty.easy;
 	float height = 1;
-	List<Vector3> vertices = new List<Vector3> ();
-	List<int> triangles = new List<int> ();
-	List<Vector2> uv = new List<Vector2> ();
+	List<Vector3> vertices;
+	List<int> triangles;
+	List<Vector2> uv;
 
 	// Use this for initialization
 	void Start () {
-		gameObject.AddComponent<MeshFilter> ();
-		gameObject.AddComponent<MeshRenderer> ();
-
+		vertices = new List<Vector3> ();
+		triangles = new List<int> ();
+		uv = new List<Vector2> ();
 		generateMeshValues (Camera.main.orthographicSize * 2 * Camera.main.aspect);
 
 		Mesh mesh = GetComponent<MeshFilter>().mesh;
 		mesh.vertices = vertices.ToArray();
 		mesh.triangles = triangles.ToArray();
 		mesh.uv = uv.ToArray ();
-		for(int i = 0; i < mesh.normals.Length; i++){
-			mesh.normals[i] = Vector3.up;
-		}
+		mesh.RecalculateNormals ();
 
 		Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3 (0, 0, 0));
 		pos.z = 0;
@@ -45,11 +43,6 @@ public class Ground : MonoBehaviour {
 		}
 		pc.points = pts.ToArray ();
 	}
-
-	/*void OnDrawGizmos () {
-		MeshFilter mesh = GetComponent<MeshFilter>().mesh;
-		Gizmos.DrawMesh (mesh);
-	}*/
 	
 	// Update is called once per frame
 	void Update () {
@@ -130,5 +123,31 @@ public class Ground : MonoBehaviour {
 			triangles.Add(vertices.Count - 1 - (i+1));
 			triangles.Add(vertices.Count - 1 - i);
 		}
+	}
+
+	// Some gizmos just for the editor
+	static bool drawn = false;
+	void OnDrawGizmos () {
+		if(drawn) {
+			return;
+		}
+
+		vertices = new List<Vector3> ();
+		triangles = new List<int> ();
+		uv = new List<Vector2> ();
+
+		generateMeshValues (Camera.main.orthographicSize * 2 * Camera.main.aspect);
+
+		Mesh mesh = GetComponent<MeshFilter>().sharedMesh;
+		mesh.vertices = vertices.ToArray();
+		mesh.triangles = triangles.ToArray();
+		mesh.uv = uv.ToArray ();
+		mesh.RecalculateNormals ();
+
+		Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3 (0, 0, 0));
+		pos.z = 0;
+		gameObject.transform.position = pos;
+		drawn = true;
+		Gizmos.DrawMesh (mesh);
 	}
 }
