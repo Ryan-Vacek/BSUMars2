@@ -49,6 +49,7 @@
      <Compile Include="Assets\Resources\Classes\Obstacle.cs" />
      <Compile Include="Assets\Resources\Classes\Obstacle\Portal.cs" />
      <Compile Include="Assets\Resources\Classes\Obstacle\Trampoline.cs" />
+     <Compile Include="Assets\Resources\Classes\OneTimeParticle.cs" />
      <Compile Include="Assets\Resources\Classes\Person.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
