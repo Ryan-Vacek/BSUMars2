@@ -10,22 +10,57 @@ enum difficulty : int {
 
 public class Ground : MonoBehaviour {
 
-	List<Vector2> heightMap;
 	difficulty diff = difficulty.easy;
 	float height = 1;
+	List<Vector3> vertices = new List<Vector3> ();
+	List<int> triangles = new List<int> ();
+	List<Vector2> uv = new List<Vector2> ();
 
 	// Use this for initialization
 	void Start () {
-
 		gameObject.AddComponent<MeshFilter> ();
 		gameObject.AddComponent<MeshRenderer> ();
 
-		float heightDifferential = 0;
-		heightMap = new List<Vector2> ();
-		float screenWidth = Camera.main.orthographicSize * 2 * Camera.main.aspect;
-		print (screenWidth);
+		generateMeshValues (Camera.main.orthographicSize * 2 * Camera.main.aspect);
 
+		Mesh mesh = GetComponent<MeshFilter>().mesh;
+		mesh.vertices = vertices.ToArray();
+		mesh.triangles = triangles.ToArray();
+		mesh.uv = uv.ToArray ();
+		for(int i = 0; i < mesh.normals.Length; i++){
+			mesh.normals[i] = Vector3.up;
+		}
+
+		Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3 (0, 0, 0));
+		pos.z = 0;
+		gameObject.transform.position = pos;
+		Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D> ();
+		rb.gravityScale = 0;
+		rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+		PolygonCollider2D pc = gameObject.AddComponent<PolygonCollider2D> ();
+		List<Vector2> pts = new List<Vector2> ();
+		foreach (Vector3 pt in vertices) {
+			pts.Add ((Vector2)pt);
+		}
+		pc.points = pts.ToArray ();
+	}
+
+	/*void OnDrawGizmos () {
+		MeshFilter mesh = GetComponent<MeshFilter>().mesh;
+		Gizmos.DrawMesh (mesh);
+	}*/
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+	void generateMeshValues(float width) {
+		List<Vector2> heightMap = new List<Vector2> ();
 		heightMap.Add (new Vector2 (0, height));
+		float heightDifferential = 0;
+		float screenWidth = width;
 
 		switch (diff)
 		{
@@ -67,11 +102,8 @@ public class Ground : MonoBehaviour {
 		}
 
 		heightMap.Add (new Vector2 (screenWidth, height));
-			
+
 		heightMap.Sort ((vec1, vec2) => vec1.x.CompareTo(vec2.x));
-		List<Vector3> vertices = new List<Vector3> ();
-		List<int> triangles = new List<int> ();
-		List<Vector2> uv = new List<Vector2> ();
 
 		// First add all the top vertices that we already created (height changed ones)
 		for (int i = 0; i < heightMap.Count; i++) {
@@ -98,32 +130,5 @@ public class Ground : MonoBehaviour {
 			triangles.Add(vertices.Count - 1 - (i+1));
 			triangles.Add(vertices.Count - 1 - i);
 		}
-
-		Mesh mesh = GetComponent<MeshFilter>().mesh;
-		mesh.vertices = vertices.ToArray();
-		mesh.triangles = triangles.ToArray();
-		mesh.uv = uv.ToArray ();
-		for(int i = 0; i < mesh.normals.Length; i++){
-			mesh.normals[i] = Vector3.up;
-		}
-
-		Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3 (0, 0, 0));
-		pos.z = 0;
-		gameObject.transform.position = pos;
-		Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D> ();
-		rb.gravityScale = 0;
-		rb.constraints = RigidbodyConstraints2D.FreezeAll;
-
-		PolygonCollider2D pc = gameObject.AddComponent<PolygonCollider2D> ();
-		List<Vector2> pts = new List<Vector2> ();
-		foreach (Vector3 pt in vertices) {
-			pts.Add ((Vector2)pt);
-		}
-		pc.points = pts.ToArray ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 }
