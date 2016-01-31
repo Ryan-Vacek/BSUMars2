@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CreateGround : MonoBehaviour {
+public class Obstacle : MonoBehaviour {
+	[SerializeField] protected int durability;
 
 	// Use this for initialization
 	void Start () {
