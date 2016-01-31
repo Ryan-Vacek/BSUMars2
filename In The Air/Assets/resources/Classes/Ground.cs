@@ -41,8 +41,8 @@ public class Ground : MonoBehaviour {
 			}
 			break;
 		case difficulty.medium:
-			heightDifferential = 0.20f;
-			for (int i = 0; i < 16; i++) {
+			heightDifferential = 0.24f;
+			for (int i = 0; i < 32; i++) {
 				float heightDelta = heightDifferential * Random.value - heightDifferential / 2.0f;
 				Vector2 vec2;
 				vec2.x = Random.value * screenWidth;
@@ -52,8 +52,8 @@ public class Ground : MonoBehaviour {
 			}
 			break;
 		case difficulty.hard:
-			heightDifferential = 0.28f;
-			for (int i = 0; i < 24; i++) {
+			heightDifferential = 0.36f;
+			for (int i = 0; i < 64; i++) {
 				float heightDelta = heightDifferential * Random.value - heightDifferential / 2.0f;
 				Vector2 vec2;
 				vec2.x = Random.value * screenWidth;
