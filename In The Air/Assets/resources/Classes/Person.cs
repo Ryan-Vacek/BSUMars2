@@ -17,7 +17,7 @@ public class Person : MonoBehaviour {
 	
 	}
 
-	void OnCollisionStay2D(Collision2D collision) {
+	void OnCollisionEnter2D(Collision2D collision) {
 		Instantiate (blood, transform.position, transform.rotation);
 	}
 
