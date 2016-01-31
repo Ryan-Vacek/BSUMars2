@@ -138,11 +138,13 @@ public class Ground : MonoBehaviour {
 
 		generateMeshValues (Camera.main.orthographicSize * 2 * Camera.main.aspect);
 
-		Mesh mesh = GetComponent<MeshFilter>().sharedMesh;
+		Mesh mesh = new Mesh();
 		mesh.vertices = vertices.ToArray();
 		mesh.triangles = triangles.ToArray();
 		mesh.uv = uv.ToArray ();
 		mesh.RecalculateNormals ();
+		GetComponent<MeshFilter> ().sharedMesh = mesh;
+		GetComponent<MeshFilter> ().mesh = mesh;
 
 		Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3 (0, 0, 0));
 		pos.z = 0;
