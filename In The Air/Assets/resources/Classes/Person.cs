@@ -5,6 +5,7 @@ public class Person : MonoBehaviour {
 	public int health;
 	private int score = 0;
 	[SerializeField] protected GameObject blood;
+	private Portal entered = null;
 
 	// Use this for initialization
 	void Start () {
@@ -18,5 +19,13 @@ public class Person : MonoBehaviour {
 
 	void OnCollisionStay2D(Collision2D collision) {
 		Instantiate (blood, transform.position, transform.rotation);
+	}
+
+	public Portal getPortal() {
+		return entered;
+	}
+
+	public void setPortal(Portal portal) {
+		entered = portal;
 	}
 }

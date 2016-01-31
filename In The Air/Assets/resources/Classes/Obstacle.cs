@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Obstacle : MonoBehaviour {
-	[SerializeField] protected int durability;
+	public int durability;
 
 	// Use this for initialization
 	void Start () {
