@@ -20,13 +20,16 @@ public class Portal : Obstacle {
 			durability -= 1;
 			link.GetComponent<Portal>().durability -= 1;
 			warper.GetComponent<Person>().setPortal(this);
+			warper.GetComponent<Person>().hitObst();
 			StartCoroutine(Warp(warper.attachedRigidbody));
 		}
 	}
 
 	void OnTriggerExit2D(Collider2D warper) {
-		if (warper.GetComponent<Person>().getPortal() != this)
+		if (warper.GetComponent<Person>().getPortal() != this) {
+			warper.GetComponent<Person>().hitObst();
 			warper.GetComponent<Person>().setPortal(null);
+		}
 	}
 
 	IEnumerator Warp(Rigidbody2D warper) {
